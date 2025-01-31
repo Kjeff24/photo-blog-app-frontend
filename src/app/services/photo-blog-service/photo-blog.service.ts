@@ -16,6 +16,10 @@ export class PhotoBlogService {
     private tokenService: TokenService
   ) {}
 
+  public getAllBlogPosts(): Observable<BlogPost[]> {
+    return this.httpClient.get<BlogPost[]>(this.gateway_url);
+  }
+
   public uploadImage(request: ImageUploadRequest): Observable<BlogPost> {
     return this.httpClient.post<BlogPost>(this.gateway_url + '/upload', request);
   }
