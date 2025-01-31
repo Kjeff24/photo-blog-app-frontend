@@ -12,12 +12,15 @@ export class PhotoBlogService {
   gateway_url = environment.api_gateway + '/blog';
 
   constructor(
-    private httpClient: HttpClient,
-    private tokenService: TokenService
+    private httpClient: HttpClient
   ) {}
 
   public getAllBlogPosts(): Observable<BlogPost[]> {
     return this.httpClient.get<BlogPost[]>(this.gateway_url);
+  }
+
+  public getAllBlogPostsByUser(): Observable<BlogPost[]> {
+    return this.httpClient.get<BlogPost[]>(this.gateway_url + '/user');
   }
 
   public uploadImage(request: ImageUploadRequest): Observable<BlogPost> {
