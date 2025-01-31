@@ -31,4 +31,8 @@ export class PhotoBlogService {
     return this.httpClient.put<BlogPost>(this.gateway_url + `/upload/${photoId}`, {});
   }
 
+  public deletBogPost(photoId: string): Observable<void> {
+    return this.httpClient.delete<void>(this.gateway_url + `/delete/${photoId}`);
+  }
+
 }
