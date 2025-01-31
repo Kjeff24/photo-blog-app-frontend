@@ -20,4 +20,8 @@ export class PhotoBlogService {
     return this.httpClient.post<BlogPost>(this.gateway_url + '/upload', request);
   }
 
+  public generateTemporaryUrl(photoId: string): Observable<BlogPost> {
+    return this.httpClient.put<BlogPost>(this.gateway_url + `/upload/${photoId}`, {});
+  }
+
 }
