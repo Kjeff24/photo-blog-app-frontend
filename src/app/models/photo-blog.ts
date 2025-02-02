@@ -11,6 +11,10 @@ export interface ImageUploadRequest {
     imageBase64: string;
 }
 
+export interface PreSignedUrlResponse {
+    url: string;
+}
+
 export interface MessageResponse {
     message: string;
 }
