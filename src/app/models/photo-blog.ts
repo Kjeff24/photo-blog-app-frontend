@@ -18,3 +18,8 @@ export interface PreSignedUrlResponse {
 export interface MessageResponse {
     message: string;
 }
+
+export interface MenuItem {
+    label: string;
+    icon: string;
+}
