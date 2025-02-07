@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     user_pool_domain_uri: process.env['USER_POOL_DOMAIN_URI'] || '',
     token_endpoint: process.env['TOKEN_ENDPOINT'] || '',
     login_endpoint: process.env['LOGIN_ENDPOINT'] || '',

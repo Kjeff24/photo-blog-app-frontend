@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 import { TokenResponse } from '../../models/token-response';
 import { BlogPost } from '../../models/photo-blog';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,6 @@ import { BlogPost } from '../../models/photo-blog';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
   code = '';
   blogPost: BlogPost[] = [];
 
