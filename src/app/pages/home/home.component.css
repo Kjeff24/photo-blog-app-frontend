@@ -1,0 +1,11 @@
+.img-center {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 35%;
+    z-index: 1;
+  }
+

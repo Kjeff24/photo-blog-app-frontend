@@ -1,9 +1,8 @@
-
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -14,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useValue: tokenInterceptor,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 };

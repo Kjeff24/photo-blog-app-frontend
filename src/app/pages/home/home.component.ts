@@ -1,20 +1,41 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TokenService } from '../../services/token/token.service';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
+import { BlogPost, MenuItem } from '../../models/photo-blog';
 import { TokenResponse } from '../../models/token-response';
-import { BlogPost } from '../../models/photo-blog';
+import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
+import { TokenService } from '../../services/token/token.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
-
   code = '';
+  display = false;
+  items = Array.from({ length: 15 }, (_, i) => i);
   blogPost: BlogPost[] = [];
+  dockMenuItems: MenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'assets/svg/home.svg',
+    },
+    {
+      label: 'My Photos',
+      icon: 'assets/svg/photos.svg',
+    },
+    {
+      label: 'Upload Photo',
+      icon: 'assets/svg/upload.svg',
+    },
+    {
+      label: 'Trash',
+      icon: 'assets/svg/trash.svg',
+    },
+  ];
 
   constructor(
     private tokenService: TokenService,
