@@ -1,4 +1,6 @@
-<p-dock [model]="items" [position]="position">
+
+<div class="dock-menu">
+  <p-dock [model]="items" [position]="position">
   <ng-template #item let-item>
     <img
       [pTooltip]="item.label"
@@ -9,3 +11,5 @@
     />
   </ng-template>
 </p-dock>
+
+</div>

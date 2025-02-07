@@ -8,17 +8,20 @@ import { TokenResponse } from '../../models/token-response';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 import { TokenService } from '../../services/token/token.service';
 import { DockMenuComponent } from '../../components/dock-menu/dock-menu.component';
+import { Image } from 'primeng/image';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FormsModule, DockMenuComponent],
+  imports: [CommonModule, FormsModule, DockMenuComponent, Image],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
   code = '';
+  display = false;
+  items = Array.from({ length: 15 }, (_, i) => i);
   blogPost: BlogPost[] = [];
-  items: MenuItem[] = [
+  dockMenuItems: MenuItem[] = [
     {
       label: 'Home',
       icon: 'assets/svg/home.svg',

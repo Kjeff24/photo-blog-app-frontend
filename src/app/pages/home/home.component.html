@@ -1,4 +1,7 @@
-
-<app-dock-menu
-[items]="items"
-/>
+<div class="" *ngFor="let i of items">
+    <p-image 
+    [src]="'https://primefaces.org/cdn/primeng/images/galleria/galleria' + (i + 1) + '.jpg'" 
+    
+    alt="Centered Image" class="img-center" [preview]="true" />
+  </div>
+<app-dock-menu [items]="dockMenuItems" />
