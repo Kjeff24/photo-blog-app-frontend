@@ -22,4 +22,5 @@ export interface MessageResponse {
 export interface MenuItem {
     label: string;
     icon: string;
+    url: string;
 }
