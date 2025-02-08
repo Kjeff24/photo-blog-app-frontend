@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MenuItem } from '../models/photo-blog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dock-menu',
@@ -10,20 +11,35 @@ import { MenuItem } from '../models/photo-blog';
   styleUrl: './dock-menu.component.css'
 })
 export class DockMenuComponent {
-  @Input() items: MenuItem[] = [];
-  @Output() menuItemClick = new EventEmitter<{ item: string}>();
   position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
+  menuItems: MenuItem[] = [
+      {
+        label: 'Home',
+        icon: 'assets/svg/home.svg',
+        url: '/',
+      },
+      {
+        label: 'My Photos',
+        icon: 'assets/svg/photos.svg',
+        url: '/photos',
+      },
+      {
+        label: 'Upload Photo',
+        icon: 'assets/svg/upload.svg',
+        // Change this later on 
+        url: '/photos',
+      },
+      {
+        label: 'Trash',
+        icon: 'assets/svg/trash.svg',
+        url: '/recycle-bin',
+      },
+    ];
 
   
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private router: Router) {}
 
-  onMenuItemClick(item: string): void {
-    console.log(item)
-    this.menuItemClick.emit({item});
-  }
-
-  @HostListener('click')
-  onClick(): void {
-    this.el.nativeElement.blur();
+  onMenuItemClick(url: string): void {
+    this.router.navigate([`${url}`]);
   }
 }
