@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BlogPost, MenuItem } from '../../models/photo-blog';
-import { TokenResponse } from '../../models/token-response';
-import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
-import { TokenService } from '../../services/token/token.service';
-import { DockMenuComponent } from '../../dock-menu/dock-menu.component';
 import { ImagePreviewDockMenuComponent } from '../../components/image-preview-dock-menu/image-preview-dock-menu.component';
+import { BlogPost } from '../../models/photo-blog';
+import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 
 @Component({
   selector: 'app-home',
@@ -16,31 +12,16 @@ import { ImagePreviewDockMenuComponent } from '../../components/image-preview-do
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  code = '';
   isPreviewOpen = false;
   previewIndex: number = 0;
   rotate: number = 0;
   items = Array.from({ length: 15 }, (_, i) => i);
   blogPost: BlogPost[] = [];
 
-  constructor(
-    private tokenService: TokenService,
-    private activatedRoute: ActivatedRoute,
-    private photoBlogService: PhotoBlogService,
-    private router: Router
-  ) {}
+  constructor(private photoBlogService: PhotoBlogService) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((data) => {
-      this.code = data['code'];
-      if (this.code) {
-        this.getToken(this.code);
-      } else if (!this.tokenService.isLoggedIn()) {
-        this.tokenService.login();
-      } else {
-        this.getAllBlogPosts();
-      }
-    });
+    this.getAllBlogPosts();
   }
 
   openPreview(index: number): void {
@@ -65,22 +46,11 @@ export class HomeComponent {
     this.closePreview();
   }
 
-  getToken(code: string): void {
-    this.tokenService.getToken(this.code).subscribe({
-      next: (data: TokenResponse) => {
-        this.tokenService.setTokens(data.id_token);
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
   getAllBlogPosts(): void {
     this.photoBlogService.getAllBlogPosts().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPost = data;
+        console.log(data);
       },
       error: (err) => {
         console.log(err);

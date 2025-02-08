@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MenuItem } from '../models/photo-blog';
+import { MenuItem } from '../../models/photo-blog';
 import { Router } from '@angular/router';
 
 @Component({
