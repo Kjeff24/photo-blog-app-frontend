@@ -6,36 +6,22 @@ import { BlogPost, MenuItem } from '../../models/photo-blog';
 import { TokenResponse } from '../../models/token-response';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 import { TokenService } from '../../services/token/token.service';
+import { DockMenuComponent } from '../../dock-menu/dock-menu.component';
+import { ImagePreviewDockMenuComponent } from '../../components/image-preview-dock-menu/image-preview-dock-menu.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ImagePreviewDockMenuComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
   code = '';
-  display = false;
+  isPreviewOpen = false;
+  previewIndex: number = 0;
+  rotate: number = 0;
   items = Array.from({ length: 15 }, (_, i) => i);
   blogPost: BlogPost[] = [];
-  dockMenuItems: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: 'assets/svg/home.svg',
-    },
-    {
-      label: 'My Photos',
-      icon: 'assets/svg/photos.svg',
-    },
-    {
-      label: 'Upload Photo',
-      icon: 'assets/svg/upload.svg',
-    },
-    {
-      label: 'Trash',
-      icon: 'assets/svg/trash.svg',
-    },
-  ];
 
   constructor(
     private tokenService: TokenService,
@@ -55,6 +41,28 @@ export class HomeComponent {
         this.getAllBlogPosts();
       }
     });
+  }
+
+  openPreview(index: number): void {
+    this.previewIndex = index;
+    this.isPreviewOpen = true;
+  }
+
+  closePreview(): void {
+    this.isPreviewOpen = false;
+    this.resetImageSettings();
+  }
+
+  resetImageSettings(): void {
+    this.rotate = 0;
+  }
+
+  onRotateChange(newRotate: number): void {
+    this.rotate = newRotate;
+  }
+
+  onClosePreview(): void {
+    this.closePreview();
   }
 
   getToken(code: string): void {
