@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DockMenuComponent } from './dock-menu/dock-menu.component';
+import { DockMenuComponent } from './components/dock-menu/dock-menu.component';
 
 @Component({
   selector: 'app-root',
