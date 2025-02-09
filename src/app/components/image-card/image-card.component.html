@@ -5,13 +5,15 @@
     class="w-full"
     (click)="openPreview()"
   />
-  <div class="absolute top-2 right-2 bg-white/20 backdrop-blur-md rounded-lg p-2 flex flex-col">
-    <a *ngFor="let item of menuItems" class="relative flex items-center group mb-2 hover:scale-110">
-      <img
-        [src]="item.icon"
-        [alt]="item.label"
-        class="w-6 h-6 rounded-lg"
-      />
+  <div
+    class="absolute top-2 right-2 bg-white/20 backdrop-blur-md rounded-lg p-2 flex flex-col"
+  >
+    <a
+      *ngFor="let item of menuItems"
+      class="relative flex items-center group mb-2 hover:scale-110"
+      (click)="openModal(item)"
+    >
+      <img [src]="item.icon" [alt]="item.label" class="w-6 h-6 rounded-lg" />
       <span
         class="absolute left-full ml-2 whitespace-nowrap px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
@@ -21,24 +23,18 @@
   </div>
 </div>
 
-<div
-  *ngIf="isPreviewOpen"
-  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+<app-modal
+  *ngIf="isModalOpen"
+  [selectedItem]="selectedItem"
+  (close)="closeModal()"
+  (continue)="modalContinueResponse(selectedItem?.label)"
 >
-  <div class="relative max-w-full max-h-full p-4">
-    <img
-      [src]="blogPost?.ImageUrl"
-      alt="Preview"
-      [ngStyle]="{
-          transform: 'rotate(' + rotate + 'deg)',
-        }"
-      class="max-h-[85vh] object-contain"
-    />
-  </div>
+</app-modal>
 
-  <app-image-preview-dock-menu
-    [rotate]="rotate"
-    (rotateChange)="onRotateChange($event)"
-    (closePreview)="onClosePreview()"
-  />
-</div>
+<app-image-preview-dock-menu
+  *ngIf="isPreviewOpen"
+  [rotate]="rotate"
+  [imageUrl]="blogPost?.ImageUrl"
+  (rotateChange)="onRotateChange($event)"
+  (closePreview)="onClosePreview()"
+/>
