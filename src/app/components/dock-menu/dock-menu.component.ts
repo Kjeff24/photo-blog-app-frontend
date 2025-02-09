@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
   styleUrl: './dock-menu.component.css'
 })
 export class DockMenuComponent {
+  position: string = 'right';
   activeUrl: string = '';
-  position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
   menuItems: MenuItem[] = [
       {
         label: 'Home',
@@ -43,4 +43,5 @@ export class DockMenuComponent {
     this.activeUrl = url;
     this.router.navigate([`${url}`]);
   }
+
 }
