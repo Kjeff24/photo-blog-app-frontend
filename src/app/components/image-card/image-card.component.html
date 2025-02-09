@@ -1,0 +1,27 @@
+<img
+  [src]="blogPost?.ImageUrl"
+  alt="Centered Image"
+  class="flex justify-center items-center mx-auto mb-2.5 w-[35%]"
+  (click)="openPreview()"
+/>
+<div
+  *ngIf="isPreviewOpen"
+  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+>
+  <div class="relative max-w-full max-h-full p-4">
+    <img
+      [src]="blogPost?.ImageUrl"
+      alt="Preview"
+      [ngStyle]="{
+          transform: 'rotate(' + rotate + 'deg)',
+        }"
+      class="max-h-[85vh] object-contain"
+    />
+  </div>
+
+  <app-image-preview-dock-menu
+    [rotate]="rotate"
+    (rotateChange)="onRotateChange($event)"
+    (closePreview)="onClosePreview()"
+  />
+</div>
