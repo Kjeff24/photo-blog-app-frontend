@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ImageCardComponent } from '../../components/image-card/image-card.component';
 import { CommonModule } from '@angular/common';
-import { BlogPost, MenuItem } from '../../models/photo-blog';
+import { BlogPost, CardMenuItem, MenuItem } from '../../models/photo-blog';
 
 @Component({
   selector: 'app-user-photos',
@@ -10,16 +10,16 @@ import { BlogPost, MenuItem } from '../../models/photo-blog';
   styleUrl: './user-photos.component.css',
 })
 export class UserPhotosComponent {
-  menuItems: MenuItem[] = [
+  menuItems: CardMenuItem[] = [
     {
       label: 'Share',
       icon: 'assets/svg/share.svg',
-      url: ''
+      notificationMessage: 'Do you want to generate temporary url?'
     },
     {
       label: 'Move to trash',
       icon: 'assets/svg/recycle.svg',
-      url: ''
+      notificationMessage: 'Do you want to move item to trash?'
     },
   ];
   blogPosts: BlogPost[] = [
@@ -54,4 +54,9 @@ export class UserPhotosComponent {
       uploadDate: '2024-02-07',
     },
   ];
+
+  menuItemClickResponse(blogPost: BlogPost, event: {label: string}) {
+    console.log(blogPost);
+    console.log(event)
+  }
 }

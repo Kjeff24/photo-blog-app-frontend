@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ImageCardComponent } from '../../components/image-card/image-card.component';
-import { BlogPost, MenuItem } from '../../models/photo-blog';
+import { BlogPost, CardMenuItem, MenuItem } from '../../models/photo-blog';
 
 @Component({
   selector: 'app-recycle-bin',
@@ -10,16 +10,16 @@ import { BlogPost, MenuItem } from '../../models/photo-blog';
   styleUrl: './recycle-bin.component.css',
 })
 export class RecycleBinComponent {
-  menuItems: MenuItem[] = [
+  menuItems: CardMenuItem[] = [
     {
       label: 'Restore',
       icon: 'assets/svg/restore.svg',
-      url: ''
+      notificationMessage: 'Do you want to restore blog?'
     },
     {
       label: 'Delete',
       icon: 'assets/svg/delete.svg',
-      url: ''
+      notificationMessage: 'Do you want to delete blog permanently?'
     },
   ]
   blogPosts: BlogPost[] = [
@@ -54,4 +54,9 @@ export class RecycleBinComponent {
       uploadDate: '2024-02-07',
     },
   ];
+
+  menuItemClickResponse(blogPost: BlogPost, event: {label: string}) {
+    console.log(blogPost);
+    console.log(event)
+  }
 }

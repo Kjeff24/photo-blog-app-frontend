@@ -1,3 +1,8 @@
 <div *ngFor="let blogPost of blogPosts">
-  <app-image-card [blogPost]="blogPost" [page]="'user-photos'" [menuItems]="menuItems"/>
+  <app-image-card
+  [blogPost]="blogPost"
+  [page]="'user-photos'"
+  [menuItems]="menuItems"
+  (menuItemClick)="menuItemClickResponse(blogPost, $event)"
+  />
 </div>
