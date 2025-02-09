@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageCardComponent } from '../../components/image-card/image-card.component';
-import { BlogPost } from '../../models/photo-blog';
+import { BlogPost, MenuItem } from '../../models/photo-blog';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.s
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  menuItems: MenuItem[] = []
   blogPosts: BlogPost[] = [
     {
       photoId: '1',

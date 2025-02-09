@@ -1,16 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ImageCardComponent } from '../../components/image-card/image-card.component';
-import { BlogPost } from '../../models/photo-blog';
+import { BlogPost, MenuItem } from '../../models/photo-blog';
 
 @Component({
   selector: 'app-recycle-bin',
   imports: [CommonModule, ImageCardComponent],
   templateUrl: './recycle-bin.component.html',
-  styleUrl: './recycle-bin.component.css'
+  styleUrl: './recycle-bin.component.css',
 })
 export class RecycleBinComponent {
-blogPosts: BlogPost[] = [
+  menuItems: MenuItem[] = [
+    {
+      label: 'Restore',
+      icon: 'assets/svg/restore.svg',
+      url: ''
+    },
+    {
+      label: 'Delete',
+      icon: 'assets/svg/delete.svg',
+      url: ''
+    },
+  ]
+  blogPosts: BlogPost[] = [
     {
       photoId: '1',
       owner: 'john_doe',

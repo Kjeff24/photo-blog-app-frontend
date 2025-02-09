@@ -1,16 +1,28 @@
 import { Component } from '@angular/core';
 import { ImageCardComponent } from '../../components/image-card/image-card.component';
 import { CommonModule } from '@angular/common';
-import { BlogPost } from '../../models/photo-blog';
+import { BlogPost, MenuItem } from '../../models/photo-blog';
 
 @Component({
   selector: 'app-user-photos',
   imports: [CommonModule, ImageCardComponent],
   templateUrl: './user-photos.component.html',
-  styleUrl: './user-photos.component.css'
+  styleUrl: './user-photos.component.css',
 })
 export class UserPhotosComponent {
-blogPosts: BlogPost[] = [
+  menuItems: MenuItem[] = [
+    {
+      label: 'Share',
+      icon: 'assets/svg/share.svg',
+      url: ''
+    },
+    {
+      label: 'Move to trash',
+      icon: 'assets/svg/recycle.svg',
+      url: ''
+    },
+  ];
+  blogPosts: BlogPost[] = [
     {
       photoId: '1',
       owner: 'john_doe',
@@ -42,5 +54,4 @@ blogPosts: BlogPost[] = [
       uploadDate: '2024-02-07',
     },
   ];
-
 }
