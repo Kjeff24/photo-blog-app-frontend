@@ -1,22 +1,49 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ImagePreviewDockMenuComponent } from '../../components/image-preview-dock-menu/image-preview-dock-menu.component';
+import { ImageCardComponent } from '../../components/image-card/image-card.component';
 import { BlogPost } from '../../models/photo-blog';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FormsModule, ImagePreviewDockMenuComponent],
+  imports: [CommonModule, FormsModule, ImageCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  isPreviewOpen = false;
-  previewIndex: number = 0;
-  rotate: number = 0;
-  items = Array.from({ length: 15 }, (_, i) => i);
-  blogPost: BlogPost[] = [];
+  blogPosts: BlogPost[] = [
+    {
+      photoId: '1',
+      owner: 'john_doe',
+      fullName: 'John Doe',
+      ImageUrl:
+        'https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg',
+      temporaryImageUrl:
+        'https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg',
+      uploadDate: '2024-02-09',
+    },
+    {
+      photoId: '2',
+      owner: 'jane_smith',
+      fullName: 'Jane Smith',
+      ImageUrl:
+        'https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg',
+      temporaryImageUrl:
+        'https://primefaces.org/cdn/primeng/images/galleria/galleria12.jpg',
+      uploadDate: '2024-02-08',
+    },
+    {
+      photoId: '3',
+      owner: 'alice_wonder',
+      fullName: 'Alice Wonderland',
+      ImageUrl:
+        'https://primefaces.org/cdn/primeng/images/galleria/galleria12.jpg',
+      temporaryImageUrl:
+        'https://primefaces.org/cdn/primeng/images/galleria/galleria12.jpg',
+      uploadDate: '2024-02-07',
+    },
+  ];
 
   constructor(private photoBlogService: PhotoBlogService) {}
 
@@ -24,33 +51,10 @@ export class HomeComponent {
     this.getAllBlogPosts();
   }
 
-  openPreview(index: number): void {
-    this.previewIndex = index;
-    this.isPreviewOpen = true;
-  }
-
-  closePreview(): void {
-    this.isPreviewOpen = false;
-    this.resetImageSettings();
-  }
-
-  resetImageSettings(): void {
-    this.rotate = 0;
-  }
-
-  onRotateChange(newRotate: number): void {
-    this.rotate = newRotate;
-  }
-
-  onClosePreview(): void {
-    this.closePreview();
-  }
-
   getAllBlogPosts(): void {
     this.photoBlogService.getAllBlogPosts().subscribe({
       next: (data: BlogPost[]) => {
-        this.blogPost = data;
-        console.log(data);
+        // this.blogPosts = data;
       },
       error: (err) => {
         console.log(err);
