@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ImagePreviewDockMenuComponent {
   @Input() rotate: number = 0;
-  @Input() imageWidth: number = 100;
+  @Input() imageUrl?: string;
   @Output() rotateChange = new EventEmitter<number>();
   @Output() zoomChange = new EventEmitter<number>();
   @Output() closePreview = new EventEmitter<void>();
