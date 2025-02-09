@@ -4,6 +4,7 @@
     *ngFor="let item of menuItems"
     class="relative flex flex-col items-center text-white text-sm mx-3 transition-transform hover:scale-125 focus:outline-none group"
     tabindex="0"
+    [class]="activeUrl === item.url ? 'border-1 border-white/20 transform translate-y-[-10px]' : ''"
     (click)="onMenuItemClick(item.url)"
   >
     <span

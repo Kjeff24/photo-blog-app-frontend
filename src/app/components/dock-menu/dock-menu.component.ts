@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './dock-menu.component.css'
 })
 export class DockMenuComponent {
+  activeUrl: string = '';
   position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
   menuItems: MenuItem[] = [
       {
@@ -26,8 +27,7 @@ export class DockMenuComponent {
       {
         label: 'Upload Photo',
         icon: 'assets/svg/upload.svg',
-        // Change this later on 
-        url: '/photos',
+        url: '/upload',
       },
       {
         label: 'Trash',
@@ -40,6 +40,7 @@ export class DockMenuComponent {
   constructor(private el: ElementRef, private router: Router) {}
 
   onMenuItemClick(url: string): void {
+    this.activeUrl = url;
     this.router.navigate([`${url}`]);
   }
 }
