@@ -1,1 +1,3 @@
-<p>recycle-bin works!</p>
+<div *ngFor="let blogPost of blogPosts">
+  <app-image-card [blogPost]="blogPost" [page]="'recycle-bin'"/>
+</div>
