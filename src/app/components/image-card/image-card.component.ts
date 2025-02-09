@@ -14,6 +14,7 @@ export class ImageCardComponent {
   previewIndex: string = '';
   rotate: number = 0;
   @Input() blogPost?: BlogPost;
+  @Input() page: string = '';
 
   openPreview(): void {
     if (this.blogPost?.photoId) {

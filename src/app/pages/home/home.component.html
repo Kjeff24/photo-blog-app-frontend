@@ -1,6 +1,3 @@
-<!-- Image list -->
 <div *ngFor="let blogPost of blogPosts">
-<app-image-card 
-[blogPost]="blogPost"
-/>
+  <app-image-card [blogPost]="blogPost" [page]="'home'"/>
 </div>
