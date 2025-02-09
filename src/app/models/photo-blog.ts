@@ -24,3 +24,9 @@ export interface MenuItem {
     icon: string;
     url: string;
 }
+
+export interface CardMenuItem {
+    label: string;
+    icon: string;
+    notificationMessage: string;
+}

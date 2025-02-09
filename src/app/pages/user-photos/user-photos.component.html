@@ -1,1 +1,8 @@
-<p>user-photos works!</p>
+<div *ngFor="let blogPost of blogPosts">
+  <app-image-card
+  [blogPost]="blogPost"
+  [page]="'user-photos'"
+  [menuItems]="menuItems"
+  (menuItemClick)="menuItemClickResponse(blogPost, $event)"
+  />
+</div>

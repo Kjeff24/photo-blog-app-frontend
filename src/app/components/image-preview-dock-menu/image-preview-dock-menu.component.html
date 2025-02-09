@@ -1,20 +1,30 @@
 <div
-  class="absolute top-4 right-4 flex flex-row items-center space-x-2 bg-white/20 backdrop-blur-md rounded-3xl p-2 z-20"
+  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
 >
-  <ng-container *ngFor="let item of menuItems">
-    <a
-      (click)="onActionClick(item.action)"
-      class="relative group text-white p-2 rounded cursor-pointer"
-    >
-      <img
-        [src]="item.icon"
-        [alt]="item.icon"
-        class="rounded-lg"
-      />
-      <!-- Overlay on hover -->
-      <div
-        class="absolute inset-0 bg-white opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-3xl"
-      ></div>
-    </a>
-  </ng-container>
+  <div class="relative max-w-full max-h-full p-4">
+    <img
+      [src]="imageUrl"
+      alt="Preview"
+      [ngStyle]="{
+          transform: 'rotate(' + rotate + 'deg)',
+        }"
+      class="max-h-[85vh] object-contain"
+    />
+  </div>
+
+  <div
+    class="absolute top-4 right-4 flex flex-row items-center space-x-2 bg-white/20 backdrop-blur-md rounded-3xl p-2 z-20"
+  >
+    <ng-container *ngFor="let item of menuItems">
+      <a
+        (click)="onActionClick(item.action)"
+        class="relative group text-white p-2 rounded cursor-pointer"
+      >
+        <img [src]="item.icon" [alt]="item.icon" class="rounded-lg" />
+        <div
+          class="absolute inset-0 bg-white opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-3xl"
+        ></div>
+      </a>
+    </ng-container>
+  </div>
 </div>

@@ -1,15 +1,20 @@
-
-<div class="fixed bottom-5 left-1/2 transform -translate-x-1/2 flex bg-white/10 p-3 rounded-2xl shadow-lg backdrop-blur-md w-auto max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-[60vw] xl:max-w-[50vw]">
+<div
+  class="fixed flex bg-white/10 p-3 rounded-2xl shadow-lg backdrop-blur-md w-auto bottom-5 left-1/2 -translate-x-1/2 max-w-[90vw]"
+>
   <a
     *ngFor="let item of menuItems"
-    class="relative flex flex-col items-center text-white text-sm mx-3 transition-transform hover:scale-125 focus:outline-none group"
+    class="relative flex flex-col items-center text-white text-sm transition-transform hover:scale-125 focus:outline-none group mx-3"
+    [ngClass]="{
+      'border-b-2 border-white/20 scale-125': activeUrl === item.url
+    }"
     tabindex="0"
     (click)="onMenuItemClick(item.url)"
   >
     <span
-      class="absolute bottom-14 whitespace-nowrap px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300"
-    >{{ item.label }}</span>
+      class="absolute whitespace-nowrap px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300 bottom-14"
+    >
+      {{ item.label }}
+    </span>
     <img [src]="item.icon" [alt]="item.label" class="w-12 h-12 sm:h-10 rounded-lg" />
-  
   </a>
 </div>
