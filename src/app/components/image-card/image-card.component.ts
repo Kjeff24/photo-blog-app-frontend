@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { BlogPost } from '../../models/photo-blog';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BlogPost, MenuItem } from '../../models/photo-blog';
 import { ImagePreviewDockMenuComponent } from '../image-preview-dock-menu/image-preview-dock-menu.component';
 
 @Component({
@@ -13,8 +13,10 @@ export class ImageCardComponent {
   isPreviewOpen = false;
   previewIndex: string = '';
   rotate: number = 0;
+  @Input() menuItems: MenuItem[] = [];
   @Input() blogPost?: BlogPost;
   @Input() page: string = '';
+  @Output() menuItemClick = new EventEmitter<{ item: string, blogPost: BlogPost | null }>();
 
   openPreview(): void {
     if (this.blogPost?.photoId) {
