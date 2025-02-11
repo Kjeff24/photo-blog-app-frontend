@@ -22,8 +22,8 @@ export class ImageCardComponent {
   @Output() menuItemClick = new EventEmitter<{ label: string }>();
 
   openPreview(): void {
-    if (this.blogPost?.photoId) {
-      this.previewIndex = this.blogPost.photoId;
+    if (this.blogPost?.pk) {
+      this.previewIndex = this.blogPost.pk;
       this.isPreviewOpen = true;
     }
   }
