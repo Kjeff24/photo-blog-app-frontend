@@ -6,3 +6,9 @@
   (menuItemClick)="menuItemClickResponse(blogPost, $event)"
   />
 </div>
+<app-copy-url-modal
+  *ngIf="showCopyUrlModal"
+  [url]="preSignedUrl || 'hhtthh'"
+  (close)="closeModal()"
+/>
+

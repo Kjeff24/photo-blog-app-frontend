@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
+import { BlogPost, ImageUploadRequest, MessageResponse } from '../../models/photo-blog';
 
 @Component({
   selector: 'app-image-upload',
@@ -12,92 +14,109 @@ export class ImageUploadComponent {
   uploadForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
   isDragging = false;
+  isSubmitting = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private photoBlogService: PhotoBlogService) {
     this.uploadForm = this.fb.group({
-      image: [null],
+      image: [null, Validators.required],
     });
   }
-// Handle file input change
-onFileChange(event: Event) {
-  const fileInput = event.target as HTMLInputElement;
-  if (fileInput.files && fileInput.files.length > 0) {
-    const file = fileInput.files[0];
-    this.processFile(file);
-  }
-}
 
-processFile(file: File) {
-  const maxSize = 2 * 1024 * 1024;
-  if (file.size > maxSize) {
-    alert('File size should not exceed 2MB.');
-    return;
+  onFileChange(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      this.processFile(file);
+    }
   }
 
-  const allowedTypes = [
-    'image/png',
-    'image/jpeg',
-    'image/gif',
-    'image/bmp',
-    'image/tiff',
-    'image/webp',
-  ];
-  if (!allowedTypes.includes(file.type)) {
-    alert('Invalid file type! Please upload a PNG, JPG, GIF, BMP, TIFF, or WEBP.');
-    return;
+  processFile(file: File) {
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('File size should not exceed 2MB.');
+      return;
+    }
+
+    const allowedTypes = [
+      'image/png',
+      'image/jpeg',
+      'image/gif',
+      'image/bmp',
+      'image/tiff',
+      'image/webp',
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      alert(
+        'Invalid file type! Please upload a PNG, JPG, GIF, BMP, TIFF, or WEBP.'
+      );
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+      const base64String = reader.result?.toString().split(',')[1];
+
+      this.uploadForm.patchValue({
+        image: base64String,
+      });
+    };
+
+    reader.readAsDataURL(file);
   }
 
-  this.uploadForm.patchValue({
-    image: file,
-  });
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    this.imagePreview = reader.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-onSubmit() {
-  if (this.uploadForm.valid) {
-    const formData = new FormData();
-    formData.append('image', this.uploadForm.get('image')?.value);
-
-    console.log('Form Data:', formData);
-    alert('Image uploaded successfully!');
-  } else {
-    alert('Please select an image to upload.');
+  onSubmit() {
+    if (this.uploadForm.valid) {
+      this.isSubmitting = true; 
+      const uploadImageRequest: ImageUploadRequest = {
+        imageBase64: this.uploadForm.get('image')?.value
+      }
+      this.uploadImage(uploadImageRequest)
+    } else {
+      alert('Please select an image to upload.');
+    }
   }
-}
 
-// Drag-and-drop event handlers
-onDragOver(event: DragEvent) {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isDragging = true;
-}
-
-onDragEnter(event: DragEvent) {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isDragging = true;
-}
-
-onDragLeave(event: DragEvent) {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isDragging = false;
-}
-
-onDrop(event: DragEvent) {
-  event.preventDefault();
-  event.stopPropagation();
-  this.isDragging = false;
-
-  const files = event.dataTransfer?.files;
-  if (files && files.length > 0) {
-    const file = files[0];
-    this.processFile(file);
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = true;
   }
-}
+
+  onDragEnter(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = true;
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = false;
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragging = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      this.processFile(file);
+    }
+  }
+
+  uploadImage(imageUploadRequest: ImageUploadRequest) {
+    this.photoBlogService.uploadImage(imageUploadRequest).subscribe({
+      next: (blogPost: BlogPost) => {
+        this.imagePreview= blogPost.imageUrl;
+        this.isSubmitting = false;
+      },
+      error: (error: MessageResponse) => {
+        this.isSubmitting = false; 
+        console.log(error.message)
+      }
+    })
+  }
 }
