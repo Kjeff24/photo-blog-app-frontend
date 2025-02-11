@@ -1,6 +1,7 @@
 <div class="relative w-[35%] mx-auto mb-2.5">
+  <!-- <p class="text-white">he{{ blogPost?.ImageUrl }}</p> -->
   <img
-    [src]="blogPost?.ImageUrl"
+    [src]="blogPost?.imageUrl"
     alt="Centered Image"
     class="w-full"
     (click)="openPreview()"
@@ -34,7 +35,7 @@
 <app-image-preview-dock-menu
   *ngIf="isPreviewOpen"
   [rotate]="rotate"
-  [imageUrl]="blogPost?.ImageUrl"
+  [imageUrl]="blogPost?.imageUrl"
   (rotateChange)="onRotateChange($event)"
   (closePreview)="onClosePreview()"
 />
