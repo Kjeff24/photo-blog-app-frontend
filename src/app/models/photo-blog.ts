@@ -1,10 +1,13 @@
 export interface BlogPost {
-    photoId: string;
-    owner: string;
+    pk: string;
+    sk: string;
     fullName: string;
-    ImageUrl: string;
+    imageUrl: string;
     temporaryImageUrl: string;
     uploadDate: string;
+    type: string,
+    deleteStatus: string
+
 }
 
 export interface ImageUploadRequest {
