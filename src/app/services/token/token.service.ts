@@ -24,10 +24,11 @@ export class TokenService {
   }
 
   public getToken(code: string): Observable<TokenResponse> {
+    let currentHost = window.location.origin;
     let body = new HttpParams()
       .set('grant_type', environment.grant_type)
       .set('client_id', environment.client_id)
-      .set('redirect_uri', environment.redirect_uri)
+      .set('redirect_uri', `${currentHost}/oauth2/code`)
       .set('code', code);
     const basic_auth =
       'Basic ' + btoa(`${environment.client_id}:${environment.client_secret}`);
