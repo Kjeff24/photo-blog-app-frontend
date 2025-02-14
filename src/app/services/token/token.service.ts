@@ -14,10 +14,11 @@ export class TokenService {
   constructor(private httpClient: HttpClient) {}
 
   login(): void {
+    let currentHost = window.location.origin;
     let params = new HttpParams()
       .set('response_type', environment.response_type)
       .set('client_id', environment.client_id)
-      .set('redirect_uri', environment.redirect_uri);
+      .set('redirect_uri', `${currentHost}/oauth2/code`);
 
     location.href = environment.login_endpoint + '?' + params;
   }
