@@ -15,7 +15,7 @@ frontend:
             commands:
                 - 'npm run build --configuration=production'
     artifacts:
-        baseDirectory: dist/task-management-app
+        baseDirectory: dist/photo-blog-app-frontend
         files:
             - '**/*'
     cache:
