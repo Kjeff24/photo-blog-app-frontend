@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from '../token/token.service';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { BlogPost, ImageUploadRequest, PreSignedUrlResponse } from '../../models/photo-blog';
 import { Observable } from 'rxjs';
 
