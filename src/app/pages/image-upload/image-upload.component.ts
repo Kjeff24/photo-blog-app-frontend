@@ -112,6 +112,7 @@ export class ImageUploadComponent {
       next: (blogPost: BlogPost) => {
         this.imagePreview= blogPost.imageUrl;
         this.isSubmitting = false;
+        this.uploadForm.reset();
       },
       error: (error: MessageResponse) => {
         this.isSubmitting = false; 
