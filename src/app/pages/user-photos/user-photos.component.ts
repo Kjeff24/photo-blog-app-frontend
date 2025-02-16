@@ -52,11 +52,7 @@ export class UserPhotosComponent {
     this.photoBlogService.getAllBlogPostsByUser().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPosts = data;
-        if (!this.blogPosts || this.blogPosts.length === 0) {
-          this.isEmpty = true;
-        } else {
-          this.isEmpty = false;
-        }
+        this.updateIsEmptyStatus();
       },
       error: (err) => {
         console.log(err);
@@ -80,10 +76,15 @@ export class UserPhotosComponent {
     this.photoBlogService.moveToRecycleBin(photoId).subscribe({
       next: () => {
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
+        this.updateIsEmptyStatus();
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+  
+  private updateIsEmptyStatus(): void {
+    this.isEmpty = !this.blogPosts || this.blogPosts.length === 0;
   }
 }
