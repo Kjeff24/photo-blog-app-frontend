@@ -28,6 +28,7 @@ export class UserPhotosComponent {
   blogPosts: BlogPost[] = [];
   preSignedUrl: string = '';
   showCopyUrlModal: boolean = false;
+  isEmpty: boolean = false;
 
   constructor(private photoBlogService: PhotoBlogService) {}
 
@@ -51,7 +52,11 @@ export class UserPhotosComponent {
     this.photoBlogService.getAllBlogPostsByUser().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPosts = data;
-        console.log(this.blogPosts)
+        if (!this.blogPosts || this.blogPosts.length === 0) {
+          this.isEmpty = true;
+        } else {
+          this.isEmpty = false;
+        }
       },
       error: (err) => {
         console.log(err);

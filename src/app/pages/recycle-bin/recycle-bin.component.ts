@@ -25,6 +25,7 @@ export class RecycleBinComponent {
     },
   ]
   blogPosts: BlogPost[] = [];
+  isEmpty: boolean = false;
 
   constructor(private photoBlogService: PhotoBlogService){}
 
@@ -44,6 +45,11 @@ export class RecycleBinComponent {
     this.photoBlogService.getRecycleBlogPostByUser().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPosts = data;
+        if (!this.blogPosts || this.blogPosts.length === 0) {
+          this.isEmpty = true;
+        } else {
+          this.isEmpty = false;
+        }
       },
       error: (error: MessageResponse) => {
         console.log(error.message);

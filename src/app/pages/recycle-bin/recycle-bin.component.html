@@ -6,3 +6,10 @@
   (menuItemClick)="menuItemClickResponse(blogPost, $event)"
   />
 </div>
+
+<div *ngIf="isEmpty" class="flex justify-center items-center h-screen text-white">
+  <div class="text-center">
+    <h2 class="text-2xl font-bold">No Data Found</h2>
+    <p class="text-lg">It looks like there's nothing here.</p>
+  </div>
+</div>
