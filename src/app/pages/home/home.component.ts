@@ -14,6 +14,7 @@ import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.s
 export class HomeComponent {
   menuItems: CardMenuItem[] = []
   blogPosts: BlogPost[] = [];
+  isEmpty: boolean = false;
 
   constructor(private photoBlogService: PhotoBlogService) {}
 
@@ -22,7 +23,6 @@ export class HomeComponent {
   }
 
   menuItemClickResponse(blogPost: BlogPost, event: {label: string}) {
-    console.log(blogPost);
     console.log(event)
   }
 
@@ -30,6 +30,11 @@ export class HomeComponent {
     this.photoBlogService.getAllBlogPosts().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPosts = data;
+        if (!this.blogPosts || this.blogPosts.length === 0) {
+          this.isEmpty = true;
+        } else {
+          this.isEmpty = false;
+        }
       },
       error: (err) => {
         console.log(err);
