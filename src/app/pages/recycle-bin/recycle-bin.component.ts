@@ -25,6 +25,7 @@ export class RecycleBinComponent {
     },
   ]
   blogPosts: BlogPost[] = [];
+  isEmpty: boolean = false;
 
   constructor(private photoBlogService: PhotoBlogService){}
 
@@ -44,6 +45,7 @@ export class RecycleBinComponent {
     this.photoBlogService.getRecycleBlogPostByUser().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPosts = data;
+        this.updateIsEmptyStatus();
       },
       error: (error: MessageResponse) => {
         console.log(error.message);
@@ -55,6 +57,7 @@ export class RecycleBinComponent {
     this.photoBlogService.restoreFromRecycleBin(photoId).subscribe({
       next: () => {
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
+        this.updateIsEmptyStatus();
       },
       error: (error: MessageResponse) => {
         console.log(error.message)
@@ -66,10 +69,15 @@ export class RecycleBinComponent {
     this.photoBlogService.deletBogPost(photoId).subscribe({
       next: () => {
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
+        this.updateIsEmptyStatus();
       },
       error: (error: MessageResponse) => {
         console.log(error.message)
       }
     })
+  }
+
+  private updateIsEmptyStatus(): void {
+    this.isEmpty = !this.blogPosts || this.blogPosts.length === 0;
   }
 }

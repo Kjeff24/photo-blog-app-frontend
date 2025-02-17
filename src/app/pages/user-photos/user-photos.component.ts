@@ -28,6 +28,7 @@ export class UserPhotosComponent {
   blogPosts: BlogPost[] = [];
   preSignedUrl: string = '';
   showCopyUrlModal: boolean = false;
+  isEmpty: boolean = false;
 
   constructor(private photoBlogService: PhotoBlogService) {}
 
@@ -51,7 +52,7 @@ export class UserPhotosComponent {
     this.photoBlogService.getAllBlogPostsByUser().subscribe({
       next: (data: BlogPost[]) => {
         this.blogPosts = data;
-        console.log(this.blogPosts)
+        this.updateIsEmptyStatus();
       },
       error: (err) => {
         console.log(err);
@@ -75,10 +76,15 @@ export class UserPhotosComponent {
     this.photoBlogService.moveToRecycleBin(photoId).subscribe({
       next: () => {
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
+        this.updateIsEmptyStatus();
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+  
+  private updateIsEmptyStatus(): void {
+    this.isEmpty = !this.blogPosts || this.blogPosts.length === 0;
   }
 }
