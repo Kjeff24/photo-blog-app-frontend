@@ -3,10 +3,7 @@ export interface BlogPost {
     sk: string;
     fullName: string;
     imageUrl: string;
-    temporaryImageUrl: string;
     uploadDate: string;
-    type: string,
-    deleteStatus: string
 
 }
 
