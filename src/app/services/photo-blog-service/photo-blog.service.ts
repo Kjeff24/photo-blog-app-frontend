@@ -35,7 +35,7 @@ export class PhotoBlogService {
     return this.httpClient.patch<PreSignedUrlResponse>(this.gateway_url + `/generate-url/${photoId}`, {});
   }
 
-  public deletBogPost(photoId: string): Observable<void> {
+  public deleteBogPost(photoId: string): Observable<void> {
     return this.httpClient.delete<void>(this.gateway_url + `/delete/${photoId}`);
   }
 

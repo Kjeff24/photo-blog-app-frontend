@@ -4,6 +4,7 @@ import { ImageCardComponent } from '../../components/image-card/image-card.compo
 import { MenuLabel } from '../../models/menu-items';
 import { BlogPost, CardMenuItem, MessageResponse } from '../../models/photo-blog';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
+import { ToastrService } from '../../services/toastr/toastr.service';
 
 @Component({
   selector: 'app-recycle-bin',
@@ -27,7 +28,7 @@ export class RecycleBinComponent {
   blogPosts: BlogPost[] = [];
   isEmpty: boolean = false;
 
-  constructor(private photoBlogService: PhotoBlogService){}
+  constructor(private photoBlogService: PhotoBlogService, private toastrService: ToastrService){}
 
   ngOnInit(): void {
     this.getRecycledItems();
@@ -56,6 +57,7 @@ export class RecycleBinComponent {
   restoreItem(photoId: string){
     this.photoBlogService.restoreFromRecycleBin(photoId).subscribe({
       next: () => {
+        this.toastrService.showSuccess('Blog post successfully restored.')
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
         this.updateIsEmptyStatus();
       },
@@ -66,8 +68,9 @@ export class RecycleBinComponent {
   }
 
   deleteItem(photoId: string){
-    this.photoBlogService.deletBogPost(photoId).subscribe({
+    this.photoBlogService.deleteBogPost(photoId).subscribe({
       next: () => {
+        this.toastrService.showSuccess('Blog post permanently deleted.')
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
         this.updateIsEmptyStatus();
       },
