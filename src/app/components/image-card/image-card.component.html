@@ -2,7 +2,7 @@
   <img
     [src]="blogPost?.imageUrl"
     alt="Centered Image"
-    class="w-full"
+    class="w-full  cursor-pointer"
     (click)="openPreview()"
   />
   <div
@@ -10,7 +10,7 @@
   >
     <a
       *ngFor="let item of menuItems"
-      class="relative flex items-center group mb-2 hover:scale-110"
+      class="relative flex items-center group mb-2 hover:scale-110 cursor-pointer"
       (click)="openModal(item)"
     >
       <img [src]="item.icon" [alt]="item.label" class="w-6 h-6 rounded-lg" />

@@ -3,7 +3,7 @@
 >
   <a
     *ngFor="let item of menuItems"
-    class="relative flex flex-col items-center text-white text-sm transition-transform hover:scale-125 focus:outline-none group mx-3"
+    class="relative flex flex-col items-center text-white text-sm transition-transform hover:scale-125 focus:outline-none group mx-3 cursor-pointer"
     [ngClass]="{
       'border-b-2 border-white/20 scale-125': activeUrl === item.url
     }"
