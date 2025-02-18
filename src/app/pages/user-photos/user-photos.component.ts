@@ -5,6 +5,7 @@ import { ImageCardComponent } from '../../components/image-card/image-card.compo
 import { MenuLabel } from '../../models/menu-items';
 import { BlogPost, CardMenuItem, PreSignedUrlResponse } from '../../models/photo-blog';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
+import { ToastrService } from '../../services/toastr/toastr.service';
 
 @Component({
   selector: 'app-user-photos',
@@ -30,7 +31,7 @@ export class UserPhotosComponent {
   showCopyUrlModal: boolean = false;
   isEmpty: boolean = false;
 
-  constructor(private photoBlogService: PhotoBlogService) {}
+  constructor(private photoBlogService: PhotoBlogService, private toastrService: ToastrService) {}
 
   ngOnInit(): void {
     this.getAllBlogPostsByUser();
@@ -77,6 +78,7 @@ export class UserPhotosComponent {
       next: () => {
         this.blogPosts = this.blogPosts.filter(post => post.pk !== photoId);
         this.updateIsEmptyStatus();
+        this.toastrService.showSuccess('Blog post has been moved to trash.')
       },
       error: (err) => {
         console.log(err);

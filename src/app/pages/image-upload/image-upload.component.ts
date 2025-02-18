@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PhotoBlogService } from '../../services/photo-blog-service/photo-blog.service';
 import { BlogPost, ImageUploadRequest, MessageResponse } from '../../models/photo-blog';
+import { ToastrService } from '../../services/toastr/toastr.service';
 
 @Component({
   selector: 'app-image-upload',
@@ -16,7 +17,7 @@ export class ImageUploadComponent {
   isDragging = false;
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private photoBlogService: PhotoBlogService) {
+  constructor(private fb: FormBuilder, private photoBlogService: PhotoBlogService, private toastrService: ToastrService) {
     this.uploadForm = this.fb.group({
       image: [null, Validators.required],
     });
@@ -113,6 +114,7 @@ export class ImageUploadComponent {
         this.imagePreview= blogPost.imageUrl;
         this.isSubmitting = false;
         this.uploadForm.reset();
+        this.toastrService.showSuccess('Image uploaded successfully.')
       },
       error: (error: MessageResponse) => {
         this.isSubmitting = false; 

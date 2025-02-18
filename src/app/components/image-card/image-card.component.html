@@ -1,9 +1,8 @@
 <div class="relative w-[35%] mx-auto mb-2.5">
-  <!-- <p class="text-white">he{{ blogPost?.ImageUrl }}</p> -->
   <img
     [src]="blogPost?.imageUrl"
     alt="Centered Image"
-    class="w-full"
+    class="w-full  cursor-pointer"
     (click)="openPreview()"
   />
   <div
@@ -11,7 +10,7 @@
   >
     <a
       *ngFor="let item of menuItems"
-      class="relative flex items-center group mb-2 hover:scale-110"
+      class="relative flex items-center group mb-2 hover:scale-110 cursor-pointer"
       (click)="openModal(item)"
     >
       <img [src]="item.icon" [alt]="item.label" class="w-6 h-6 rounded-lg" />
@@ -21,6 +20,10 @@
         {{ item.label }}
       </span>
     </a>
+  </div>
+  <div class="flex gap-1 mt-1 items-center">
+    <img src="assets/svg/time.svg" alt="time" class="w-4 h-4 rounded-lg" />
+    <p class="text-white text-sm">{{ blogPost?.uploadDate | date: 'dd MMM yyyy HH:mm'  }}</p>
   </div>
 </div>
 
