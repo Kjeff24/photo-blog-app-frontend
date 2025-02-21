@@ -2,10 +2,10 @@
   <img
     [src]="blogPost?.imageUrl"
     alt="Centered Image"
-    class="w-full  cursor-pointer"
+    class="w-full cursor-pointer"
     (click)="openPreview()"
   />
-  <div
+  <div *ngIf="menuItems.length != 0"
     class="absolute top-2 right-2 bg-white/20 backdrop-blur-md rounded-lg p-2 flex flex-col"
   >
     <a
@@ -20,10 +20,6 @@
         {{ item.label }}
       </span>
     </a>
-  </div>
-  <div class="flex gap-1 mt-1 items-center">
-    <img src="assets/svg/time.svg" alt="time" class="w-4 h-4 rounded-lg" />
-    <p class="text-white text-sm">{{ blogPost?.uploadDate | date: 'dd MMM yyyy HH:mm'  }}</p>
   </div>
 </div>
 
