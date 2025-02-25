@@ -34,7 +34,7 @@ export class ImageUploadComponent {
   processFile(file: File) {
     const maxSize = 2 * 1024 * 1024;
     if (file.size > maxSize) {
-      alert('File size should not exceed 2MB.');
+      this.toastrService.showError('File size should not exceed 2MB.');
       return;
     }
 
@@ -47,7 +47,7 @@ export class ImageUploadComponent {
       'image/webp',
     ];
     if (!allowedTypes.includes(file.type)) {
-      alert(
+      this.toastrService.showError(
         'Invalid file type! Please upload a PNG, JPG, GIF, BMP, TIFF, or WEBP.'
       );
       return;
@@ -74,7 +74,7 @@ export class ImageUploadComponent {
       }
       this.uploadImage(uploadImageRequest)
     } else {
-      alert('Please select an image to upload.');
+      this.toastrService.showError('Please select an image to upload.');
     }
   }
 
